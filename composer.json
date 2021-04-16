@@ -1,0 +1,39 @@
+{
+    "name": "sms77/craft",
+    "description": "Send SMS via Sms77.io SMS Gateway",
+    "type": "craft-plugin",
+    "keywords": [
+        "sms",
+        "craft",
+        "commerce",
+        "cms"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "email": "a.matthies@sms77.io",
+            "homepage": "https://sms77.io",
+            "name": "sms77 e.K.",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "a.matthies@sms77.io",
+        "issues": "https://github.com/sms77io/craft/issues?state=open",
+        "source": "https://github.com/sms77io/craft",
+        "docs": "https://github.com/sms77io/craft/blob/master/README.md"
+    },
+    "require": {
+        "craftcms/cms": "^3.1.0",
+        "sms77/api": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sms77\\Craft\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Sms77",
+        "handle": "sms77"
+    }
+}

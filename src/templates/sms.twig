@@ -1,0 +1,155 @@
+{% extends "_layouts/cp" %}
+
+{% set title = "Send SMS"|t('sms77') %}
+{% set settings = craft.app.plugins.plugin('sms77').settings %}
+{% set error = craft.app.session.getFlash('error') %}
+{% set notice = craft.app.session.getFlash('notice') %}
+{% set hasCommerce = craft.commerce is defined %}
+
+{% if not settings.apiKey|length %}
+    {% redirect "admin/settings/plugins/sms77" with notice "Missing API key"|t('sms77') %}
+{% endif %}
+
+{% block header %}
+    {% if error|length > 0 %}
+        <div class="alert alert-danger" style='font-weight: bold;'>
+            {{ "Error(s)"|t('sms77') }}
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if notice|length > 0 %}
+        <div class="alert alert-info" style='font-weight: bold;'>
+            {{ "Notice(s)"|t('sms77') }}
+            {{ notice }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% import "_includes/forms" as forms %}
+
+    <form action='/actions/sms77/message/sms' method='post'>
+        {{ csrfInput() }}
+
+        {% if hasCommerce %}
+            <h2>{{ "Filters"|t('sms77') }}</h2>
+
+            <div class='field'>
+                <div class='heading'>
+                    <label for='filter_countries[]'>{{ 'Country'|t('sms77') }}</label>
+                </div>
+                <div class='instructions'>
+                    <p>{{ 'Restrict sending to customers from the selected countries. Unused if field "to" is set.'|t('sms77') }}</p>
+                </div>
+                <select id='filter_countries[]' multiple
+                        name='filter_countries[]'
+                        style='display: block;'>
+                    {% for id, countryName in craft.commerce.countries.allEnabledCountriesAsList %}
+                        <option value="{{ id }}">
+                            {{- countryName -}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+
+        <hr>
+
+        {{ forms.textField({
+            instructions: 'A custom sender identifier (caller ID).'|t('sms77'),
+            label: "From"|t('sms77'),
+            name: 'from',
+            value: settings.from
+        }) }}
+
+        <hr>
+
+        {{ forms.textField({
+            id: 'to',
+            instructions: hasCommerce ? 'Unused if any filters are set'|t('sms77') : null ,
+            label: "Recipient(s) - separated by comma"|t('sms77'),
+            name: 'to',
+        }) }}
+
+        <hr>
+
+        {{ forms.textareaField({
+            id: 'text',
+            instructions: 'The actual message content with a maximum of 1520 characters'|t('sms77'),
+            label: "Text"|t('sms77'),
+            maxlength: 1520,
+            name: 'text',
+            required: true,
+        }) }}
+
+        <hr>
+
+        {{ forms.lightswitch({
+            id: 'debug',
+            instructions: 'Disable SMS dispatch if enabled'|t('sms77'),
+            label: "Debug"|t('sms77'),
+            name: 'debug',
+        }) }}
+
+        {{ forms.lightswitch({
+            id: 'performance_tracking',
+            instructions: 'Enable Performance Tracking for URLs found in the message text'|t('sms77'),
+            label: "Performance Tracking"|t('sms77'),
+            name: 'performance_tracking',
+        }) }}
+
+        {{ forms.lightswitch({
+            id: 'flash',
+            instructions: 'Flash SMS are displayed directly in the receiver’s display'|t('sms77'),
+            label: "Flash"|t('sms77'),
+            name: 'flash',
+        }) }}
+
+        {{ forms.lightswitch({
+            id: 'no_reload',
+            instructions: 'Switch off reload lock. This lock prevents the sending of the same SMS (text, type and recipient alike) within 180 seconds'|t('sms77'),
+            label: "No reload"|t('sms77'),
+            name: 'no_reload',
+        }) }}
+
+        {{ forms.lightswitch({
+            id: 'json',
+            instructions: 'Return JSON'|t('sms77'),
+            label: "JSON",
+            name: 'json',
+        }) }}
+
+        <hr>
+
+        {{ forms.textField({
+            id: 'label',
+            instructions: 'A maximum of 100 characters; allowed characters: a-z, A-Z, 0-9, .-_@'|t('sms77'),
+            label: "Custom label"|t('sms77'),
+            maxlength: 100,
+            name: 'label',
+        }) }}
+
+        <hr>
+
+        {{ forms.textField({
+            id: 'foreign_id',
+            instructions: 'A maximum of 64 characters; allowed characters: a-z, A-Z, 0-9, .-_@'|t('sms77'),
+            label: "Foreign ID returned in DLR callbacks etc."|t('sms77'),
+            maxlength: 64,
+            name: 'foreign_id',
+        }) }}
+
+        <hr>
+
+        {{ forms.textField({
+            id: 'delay',
+            instructions: 'Date/time for time-delayed SMS in the format of an UNIX timestamp or yyyy-mm-dd'|t('sms77'),
+            label: "Delay"|t('sms77'),
+            maxlength: 64,
+            name: 'delay',
+        }) }}
+
+        <button class='btn formsubmit' type='submit'>{{ "Submit"|t('sms77') }}</button>
+    </form>
+{% endblock %}
