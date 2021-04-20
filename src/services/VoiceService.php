@@ -3,17 +3,17 @@ namespace Sms77\Craft\services;
 
 use Craft;
 use Exception;
-use Sms77\Api\Params\SmsParams;
+use Sms77\Api\Params\VoiceParams;
 
-class SmsService extends AbstractService {
-    /** @var SmsParams $params */
+class VoiceService extends AbstractService {
+    /** @var VoiceParams $params */
     public $params;
 
     /** {@inheritdoc} */
     public function init(): void {
         parent::init();
 
-        $this->params = new SmsParams();
+        $this->params = new VoiceParams();
         $this->params->setFrom($this->settings->from);
     }
 
@@ -24,12 +24,13 @@ class SmsService extends AbstractService {
         }
 
         try {
-            $res = $this->client->sms($this->params);
-            $code = (int)($this->params->getJson() ? $res['success'] : $res);
+            $res = $this->client->voice($this->params);
+            $code = (int)($this->params->getJson()
+                ? $res['success'] : explode(PHP_EOL, $res)[0]);
 
             if (100 !== $code) {
                 throw new Exception(
-                    Craft::t('sms77', 'SMS dispatch failed:') . " $code");
+                    Craft::t('sms77', 'Voice dispatch failed:') . " $code");
             }
 
             return true;

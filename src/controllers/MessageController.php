@@ -3,7 +3,9 @@ namespace Sms77\Craft\controllers;
 
 use Craft;
 use craft\web\Controller;
+use Exception;
 use Sms77\Api\Params\SmsParams;
+use Sms77\Api\Params\VoiceParams;
 use Sms77\Craft\services\AbstractService;
 use yii\web\Response as YiiResponse;
 
@@ -13,6 +15,26 @@ class MessageController extends Controller {
         $this->requirePostRequest();
 
         $body = Craft::$app->request->bodyParams;
+        $to = $this->getTo($body);
+
+        if (count($to)) {
+            $this->send('sms', [(new SmsParams)
+                ->setText($body['text'])
+                ->setDebug((bool)$body['debug'])
+                ->setDelay($body['delay'] ?? null)
+                ->setFlash((bool)$body['flash'])
+                ->setForeignId($body['foreign_id'] ?? null)
+                ->setJson((bool)$body['json'])
+                ->setLabel($body['label'] ?? null)
+                ->setNoReload((bool)$body['no_reload'])
+                ->setPerformanceTracking((bool)$body['performance_tracking'])
+                ->setTo(implode(',', array_unique($to)))]);
+        }
+
+        return $this->redirectBack();
+    }
+
+    private function getTo(array $body): array {
         $to = array_filter(explode(',', $body['to']));
 
         if (class_exists('craft\commerce\Plugin') && !count($to)) {
@@ -36,30 +58,64 @@ class MessageController extends Controller {
             }
         }
 
-        if (count($to)) {
-            $params = (new SmsParams)
-                ->setText($body['text'])
-                ->setDebug((bool)$body['debug'])
-                ->setDelay($body['delay'] ?? null)
-                ->setFlash((bool)$body['flash'])
-                ->setForeignId($body['foreign_id'] ?? null)
-                ->setJson((bool)$body['json'])
-                ->setLabel($body['label'] ?? null)
-                ->setNoReload((bool)$body['no_reload'])
-                ->setPerformanceTracking((bool)$body['performance_tracking'])
-                ->setTo(implode(',', array_unique($to)));
-
-            try {
-                Craft::$app->session->setNotice(
-                    json_encode(AbstractService::initClient()->sms($params)));
-            } catch (\Exception $e) {
-                Craft::$app->session->setError($e->getMessage());
-            }
-        } else {
+        if (!count($to)) {
             Craft::$app->session->setError(
                 Craft::t('sms77', 'No recipient(s) found for the given configuration.'));
         }
 
+        return $to;
+    }
+
+    private function send(string $method, array $params): void {
+        $errors = [];
+        $notices = [];
+
+        foreach ($params as $param) {
+            try {
+                $notices[] = json_encode(AbstractService::initClient()->$method($param));
+            } catch (Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        if (count($errors)) {
+            Craft::$app->session->setError(implode(PHP_EOL, $errors));
+        }
+
+        if (count($notices)) {
+            Craft::$app->session->setNotice(implode(PHP_EOL, $notices));
+        }
+    }
+
+    private function redirectBack(): YiiResponse {
         return $this->redirect($this->request->getReferrer());
+    }
+
+    public function actionVoice(): YiiResponse {
+        $this->pre();
+
+        $body = Craft::$app->request->bodyParams;
+        $to = $this->getTo($body);
+
+        if (count($to)) {
+            $requests = [];
+
+            foreach (array_unique($to) as $to) {
+                $requests[] = (new VoiceParams)
+                    ->setTo($to)
+                    ->setText($body['text'])
+                    ->setXml((bool)$body['xml'])
+                    ->setJson((bool)$body['json']);
+            }
+
+            $this->send('voice', $requests);
+        }
+
+        return $this->redirectBack();
+    }
+
+    private function pre(): void {
+        $this->requireAdmin();
+        $this->requirePostRequest();
     }
 }

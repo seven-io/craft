@@ -1,0 +1,35 @@
+{% import "sms77/common" as common %}
+{% extends "_layouts/cp" %}
+
+{% set title = "Send Voice"|t('sms77') %}
+
+{% block header %}
+    {{ common.checkApiKey() }}
+    {{ common.messages() }}
+{% endblock %}
+
+{% block content %}
+    {% import "_includes/forms" as forms %}
+
+    <h1>{{ "Send Voice"|t('sms77') }}</h1>
+
+    <form action='{{ actionUrl('sms77/message/voice') }}' method='post'>
+        {{ csrfInput() }}
+        {{ common.filters() }}
+        {{ common.from() }}
+        {{ common.to() }}
+
+        <div style='display: flex;'>
+            {{ forms.lightswitch({
+                id: 'xml',
+                label: "XML",
+                name: 'xml',
+            }) }}
+
+            {{ common.json() }}
+        </div>
+
+        {{ common.text(10000) }}
+        {{ common.submit() }}
+    </form>
+{% endblock %}
