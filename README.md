@@ -41,7 +41,7 @@ After installing Sms77, go to `Settings → Sms77`, and enter your API key.
 How to send SMS:
 
 ```php
-use Sms77\CraftCommerce\Plugin; // Use the plugin
+use Sms77\Craft\Plugin; // Use the plugin
 
 $instance = Plugin::getInstance(); // init plugin
 
