@@ -1,6 +1,6 @@
 {
     "name": "sms77/craft",
-    "description": "Send SMS via Sms77.io SMS Gateway",
+    "description": "Send SMS and make text-to-speech calls via sms77",
     "type": "craft-plugin",
     "keywords": [
         "sms",
@@ -35,7 +35,7 @@
         }
     },
     "extra": {
-        "name": "Sms77",
+        "name": "sms77",
         "handle": "sms77"
     }
 }

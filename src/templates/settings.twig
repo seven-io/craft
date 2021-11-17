@@ -1,17 +1,17 @@
-{% import "_includes/forms" as forms %}
+{% import '_includes/forms' as forms %}
 
 {{ forms.textField({
     first: true,
-    instructions: 'sms77.io API Key required for sending.'|t('sms77'),
-    label: "API Key"|t('sms77'),
+    instructions: 'sms77 API Key required for sending'|t('sms77'),
+    label: 'API Key'|t('sms77'),
     name: 'apiKey',
     required: true,
     value: settings.apiKey
 }) }}
 
 {{ forms.textField({
-    instructions: 'A custom sender identifier (caller ID).'|t('sms77'),
-    label: "From"|t('sms77'),
+    instructions: 'A custom sender identifier (caller ID)'|t('sms77'),
+    label: 'From'|t('sms77'),
     name: 'from',
     value: settings.from
 }) }}

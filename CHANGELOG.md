@@ -1,5 +1,9 @@
 # Craft CMS 3 - sms77
 
+## v1.1.0 - 2021-11-17
+
+- Add German translations
+
 ## v1.0.0 - 2021-04-19
 
 ### Added

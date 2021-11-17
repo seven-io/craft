@@ -1,7 +1,7 @@
-{% import "sms77/common" as common %}
-{% extends "_layouts/cp" %}
+{% import 'sms77/common' as common %}
+{% extends '_layouts/cp' %}
 
-{% set title = "Send SMS"|t('sms77') %}
+{% set title = 'Send SMS'|t('sms77') %}
 
 {% block header %}
     {{ common.checkApiKey() }}
@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block content %}
-    {% import "_includes/forms" as forms %}
+    {% import '_includes/forms' as forms %}
 
-    <h1>{{ "Send SMS"|t('sms77') }}</h1>
+    <h1>{{ 'Send SMS'|t('sms77') }}</h1>
 
     <form action='{{ actionUrl('sms77/message/sms') }}' method='post'>
         {{ csrfInput() }}
@@ -22,25 +22,25 @@
         <div style='display: flex;'>
             {{ forms.lightswitch({
                 id: 'debug',
-                label: "Debug"|t('sms77'),
+                label: 'Debug'|t('sms77'),
                 name: 'debug',
             }) }}
 
             {{ forms.lightswitch({
                 id: 'performance_tracking',
-                label: "Performance Tracking"|t('sms77'),
+                label: 'Performance Tracking'|t('sms77'),
                 name: 'performance_tracking',
             }) }}
 
             {{ forms.lightswitch({
                 id: 'flash',
-                label: "Flash"|t('sms77'),
+                label: 'Flash'|t('sms77'),
                 name: 'flash',
             }) }}
 
             {{ forms.lightswitch({
                 id: 'no_reload',
-                label: "No Reload"|t('sms77'),
+                label: 'No Reload'|t('sms77'),
                 name: 'no_reload',
             }) }}
 
@@ -50,7 +50,7 @@
         {{ forms.textField({
             id: 'label',
             instructions: 'A maximum of 100 characters; allowed characters: a-z, A-Z, 0-9, .-_@'|t('sms77'),
-            label: "Custom label"|t('sms77'),
+            label: 'Custom label'|t('sms77'),
             maxlength: 100,
             name: 'label',
         }) }}
@@ -58,7 +58,7 @@
         {{ forms.textField({
             id: 'foreign_id',
             instructions: 'A maximum of 64 characters; allowed characters: a-z, A-Z, 0-9, .-_@'|t('sms77'),
-            label: "Foreign ID returned in DLR callbacks etc."|t('sms77'),
+            label: 'Foreign ID returned in DLR callbacks etc.'|t('sms77'),
             maxlength: 64,
             name: 'foreign_id',
         }) }}
@@ -66,7 +66,7 @@
         {{ forms.textField({
             id: 'delay',
             instructions: 'Date/time for time-delayed SMS in the format of an UNIX timestamp or yyyy-mm-dd'|t('sms77'),
-            label: "Delay"|t('sms77'),
+            label: 'Delay'|t('sms77'),
             maxlength: 64,
             name: 'delay',
         }) }}

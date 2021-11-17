@@ -1,7 +1,7 @@
-{% import "sms77/common" as common %}
-{% extends "_layouts/cp" %}
+{% import 'sms77/common' as common %}
+{% extends '_layouts/cp' %}
 
-{% set title = "Send Voice"|t('sms77') %}
+{% set title = 'Send Voice'|t('sms77') %}
 
 {% block header %}
     {{ common.checkApiKey() }}
@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block content %}
-    {% import "_includes/forms" as forms %}
+    {% import '_includes/forms' as forms %}
 
-    <h1>{{ "Send Voice"|t('sms77') }}</h1>
+    <h1>{{ 'Send Voice'|t('sms77') }}</h1>
 
     <form action='{{ actionUrl('sms77/message/voice') }}' method='post'>
         {{ csrfInput() }}
@@ -22,7 +22,7 @@
         <div style='display: flex;'>
             {{ forms.lightswitch({
                 id: 'xml',
-                label: "XML",
+                label: 'XML',
                 name: 'xml',
             }) }}
 

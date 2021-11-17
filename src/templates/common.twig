@@ -16,13 +16,16 @@
             </div>
 
             <div class='instructions'>
-                <p>{{ 'Restrict sending to customers from the selected countries. Unused if field "to" is set.'|t('sms77') }}</p>
+                <p>
+                    {{ 'Restrict sending to customers from the selected countries.'|t('sms77') }}
+                    {{ 'Unused if field "to" is set.'|t('sms77') }}
+                </p>
             </div>
 
             <select id='filter_countries[]' multiple name='filter_countries[]'
-                    style='display: block;'>
-                {% for id, countryName in craft.commerce.countries.allEnabledCountriesAsList %}
-                    <option value='{{ id }}'>
+                    style='display: block'>
+                {% for countryId, countryName in craft.commerce.countries.allEnabledCountriesAsList %}
+                    <option value='{{ countryId }}'>
                         {{- countryName -}}
                     </option>
                 {% endfor %}
