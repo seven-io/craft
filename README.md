@@ -1,4 +1,4 @@
-[![Sms77.io Logo](https://www.sms77.io/wp-content/uploads/2019/07/sms77-Logo-400x79.png "Sms77.io Logo")](https://www.sms77.io)
+[![sms77.io Logo](https://www.sms77.io/wp-content/uploads/2019/07/sms77-Logo-400x79.png "sms77.io Logo")](https://www.sms77.io)
 
 # Official Craft [CMS](https://craftcms.com) + [Commerce](https://craftcms.com/commerce) Plugin
 
@@ -12,7 +12,7 @@
 ## Prerequisites
 
 - [Craft CMS](https://craftcms.com) 3.1.5 or later
-- An API key from [Sms77](https://www.sms77.io)
+- An API key from [sms77](https://www.sms77.io)
 - (optionally) [Craft Commerce](https://craftcms.com/commerce) 2.x
 
 ## Installation
@@ -34,7 +34,7 @@ composer require sms77/craft
 
 ## Setup
 
-After installing Sms77, go to `Settings → Sms77`, and enter your API key.
+After installing sms77, go to `Settings → sms77`, and enter your API key.
 
 ## Usage
 
@@ -64,4 +64,4 @@ $voice = $instance->getVoice(); // retrieve Voice service
 
 Need help? Feel free to [contact us](https://www.sms77.io/en/company/contact/).
 
-[![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](./LICENSE.md)
+[![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE.md)

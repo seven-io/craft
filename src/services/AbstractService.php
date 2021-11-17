@@ -27,7 +27,7 @@ abstract class AbstractService extends Component {
             if (!Craft::$app->getRequest()->getIsAjax()) {
 
                 Craft::$app->getSession()->setNotice(
-                    Craft::t('sms77', 'Please configure the Sms77 settings.'));
+                    Craft::t('sms77', 'Please configure the sms77 settings.'));
             }
 
             Craft::error(Craft::t('sms77',

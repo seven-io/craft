@@ -34,12 +34,12 @@ class Plugin extends \craft\base\Plugin {
         Event::on(Cp::class, Cp::EVENT_REGISTER_CP_NAV_ITEMS,
             function (RegisterCpNavItemsEvent $event) {
                 $event->navItems[] = [
-                    'label' => 'Sms77 ' . Craft::t('sms77', 'SMS'),
+                    'label' => 'sms77 ' . Craft::t('sms77', 'SMS'),
                     'url' => 'sms77/sms',
                 ];
 
                 $event->navItems[] = [
-                    'label' => 'Sms77 ' . Craft::t('sms77', 'Voice'),
+                    'label' => 'sms77 ' . Craft::t('sms77', 'Voice'),
                     'url' => 'sms77/voice',
                 ];
             }
