@@ -3,6 +3,7 @@ namespace Sms77\Craft\services;
 
 use Craft;
 use craft\base\Component;
+use Exception;
 use Sms77\Api\Client;
 use Sms77\Craft\models\Settings;
 use Sms77\Craft\Plugin;
@@ -40,13 +41,12 @@ abstract class AbstractService extends Component {
     }
 
     /**
-     * @param null|string $apiKey
+     * @param string|null $apiKey
      * @return Client
+     * @throws Exception
      */
-    public static function initClient($apiKey = null): Client {
-        if (!$apiKey) {
-            $apiKey = Plugin::getInstance()->getSettings()->apiKey;
-        }
+    public static function initClient(string $apiKey = null): Client {
+        if (!$apiKey) $apiKey = Plugin::getInstance()->getSettings()->apiKey;
 
         return new Client($apiKey, 'Craft');
     }

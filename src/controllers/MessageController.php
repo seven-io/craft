@@ -40,28 +40,29 @@ class MessageController extends Controller {
         if (class_exists('craft\commerce\Plugin') && !count($to)) {
             $filterCountries = $body['filter_countries'] ?? [];
             $craft = craft\commerce\Plugin::getInstance();
-            $Addresses = $craft->getAddresses();
 
-            foreach ($craft->getCustomers()->getAllCustomers() as $c) {
-                $a = $Addresses->getAddressById(
-                    $c->primaryBillingAddressId ?? $c->primaryShippingAddressId);
-                $phone = '' === ($a->phone ?? '') ? $a->alternativePhone : $a->phone;
+            if ($craft) {
+                $Addresses = $craft->getAddresses();
 
-                if (count($filterCountries)
-                    && !in_array($a->countryId, $filterCountries, true)) {
-                    $phone = '';
-                }
+                foreach ($craft->getCustomers()->getAllCustomers() as $c) {
+                    $a = $Addresses->getAddressById(
+                        $c->primaryBillingAddressId ?? $c->primaryShippingAddressId);
+                    if ($a) {
+                        $phone = '' === ($a->phone ?? '')
+                            ? $a->alternativePhone : $a->phone;
 
-                if ('' !== ($phone ?? '')) {
-                    $to[] = $phone;
+                        if (count($filterCountries)
+                            && !in_array($a->countryId, $filterCountries, true))
+                            $phone = '';
+
+                        if ('' !== ($phone ?? '')) $to[] = $phone;
+                    }
                 }
             }
         }
 
-        if (!count($to)) {
-            Craft::$app->session->setError(
-                Craft::t('sms77', 'No recipient(s) found for the given configuration.'));
-        }
+        if (!count($to)) Craft::$app->session->setError(
+            Craft::t('sms77', 'No recipient(s) found for the given configuration.'));
 
         return $to;
     }
@@ -78,13 +79,9 @@ class MessageController extends Controller {
             }
         }
 
-        if (count($errors)) {
-            Craft::$app->session->setError(implode(PHP_EOL, $errors));
-        }
+        if (count($errors)) Craft::$app->session->setError(implode(PHP_EOL, $errors));
 
-        if (count($notices)) {
-            Craft::$app->session->setNotice(implode(PHP_EOL, $notices));
-        }
+        if (count($notices)) Craft::$app->session->setNotice(implode(PHP_EOL, $notices));
     }
 
     private function redirectBack(): YiiResponse {
@@ -100,13 +97,11 @@ class MessageController extends Controller {
         if (count($to)) {
             $requests = [];
 
-            foreach (array_unique($to) as $to) {
-                $requests[] = (new VoiceParams)
-                    ->setTo($to)
-                    ->setText($body['text'])
-                    ->setXml((bool)$body['xml'])
-                    ->setJson((bool)$body['json']);
-            }
+            foreach (array_unique($to) as $to) $requests[] = (new VoiceParams)
+                ->setTo($to)
+                ->setText($body['text'])
+                ->setXml((bool)$body['xml'])
+                ->setJson((bool)$body['json']);
 
             $this->send('voice', $requests);
         }
