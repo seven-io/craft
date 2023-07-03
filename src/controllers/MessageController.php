@@ -1,12 +1,12 @@
 <?php
-namespace Sms77\Craft\controllers;
+namespace Seven\Craft\controllers;
 
 use Craft;
 use craft\web\Controller;
 use Exception;
 use Sms77\Api\Params\SmsParams;
 use Sms77\Api\Params\VoiceParams;
-use Sms77\Craft\services\AbstractService;
+use Seven\Craft\services\AbstractService;
 use yii\web\Response as YiiResponse;
 
 class MessageController extends Controller {
@@ -62,7 +62,7 @@ class MessageController extends Controller {
         }
 
         if (!count($to)) Craft::$app->session->setError(
-            Craft::t('sms77', 'No recipient(s) found for the given configuration.'));
+            Craft::t('seven', 'No recipient(s) found for the given configuration.'));
 
         return $to;
     }

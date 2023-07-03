@@ -1,4 +1,4 @@
-[![sms77.io Logo](https://www.sms77.io/wp-content/uploads/2019/07/sms77-Logo-400x79.png "sms77.io Logo")](https://www.sms77.io)
+![](https://www.seven.io/wp-content/uploads/Logo.svg "seven Logo")
 
 # Official Craft [CMS](https://craftcms.com) + [Commerce](https://craftcms.com/commerce) Plugin
 
@@ -12,7 +12,7 @@
 ## Prerequisites
 
 - [Craft CMS](https://craftcms.com) 3.1.5 or later
-- An API key from [sms77](https://www.sms77.io)
+- An API key from [seven](https://www.seven.io)
 - (optionally) [Craft Commerce](https://craftcms.com/commerce) 2.x
 
 ## Installation
@@ -26,22 +26,22 @@ Open a terminal and execute the following commands:
 cd /var/www/craft
 
 # retrieve the plugin source code via Composer
-composer require sms77/craft
+composer require seven.io/craft
 
 # install the plugin via Craft CLI
-./craft install/plugin sms77
+./craft install/plugin seven
 ```
 
 ## Setup
 
-After installing sms77, go to `Settings → sms77`, and enter your API key.
+After installing seven, go to `Settings → seven`, and enter your API key.
 
 ## Usage
 
 How to send SMS:
 
 ```php
-use Sms77\Craft\Plugin; // Use the plugin
+use Seven\Craft\Plugin; // Use the plugin
 
 $instance = Plugin::getInstance(); // init plugin
 
@@ -62,6 +62,6 @@ $voice = $instance->getVoice(); // retrieve Voice service
 
 ### Support
 
-Need help? Feel free to [contact us](https://www.sms77.io/en/company/contact/).
+Need help? Feel free to [contact us](https://www.seven.io/en/company/contact/).
 
 [![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE.md)

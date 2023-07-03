@@ -1,5 +1,5 @@
 <?php
-namespace Sms77\Craft\services;
+namespace Seven\Craft\services;
 
 use Craft;
 use Exception;
@@ -29,7 +29,7 @@ class SmsService extends AbstractService {
 
             if (100 !== $code) {
                 throw new Exception(
-                    Craft::t('sms77', 'SMS dispatch failed:') . " $code");
+                    Craft::t('seven', 'SMS dispatch failed:') . " $code");
             }
 
             return true;

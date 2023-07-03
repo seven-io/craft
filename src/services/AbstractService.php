@@ -1,12 +1,12 @@
 <?php
-namespace Sms77\Craft\services;
+namespace Seven\Craft\services;
 
 use Craft;
 use craft\base\Component;
 use Exception;
 use Sms77\Api\Client;
-use Sms77\Craft\models\Settings;
-use Sms77\Craft\Plugin;
+use Seven\Craft\models\Settings;
+use Seven\Craft\Plugin;
 
 abstract class AbstractService extends Component {
     /** @var Client $client */
@@ -28,10 +28,10 @@ abstract class AbstractService extends Component {
             if (!Craft::$app->getRequest()->getIsAjax()) {
 
                 Craft::$app->getSession()->setNotice(
-                    Craft::t('sms77', 'Please configure the sms77 settings.'));
+                    Craft::t('seven', 'Please configure the seven settings.'));
             }
 
-            Craft::error(Craft::t('sms77',
+            Craft::error(Craft::t('seven',
                 'Missing settings: Please head to the settings page to correct them.'));
 
             $this->enabled = false;

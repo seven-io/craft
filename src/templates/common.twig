@@ -1,24 +1,24 @@
 {% macro checkApiKey() %}
-    {% set apiKey = craft.app.plugins.plugin('sms77').settings.apiKey %}
+    {% set apiKey = craft.app.plugins.plugin('seven').settings.apiKey %}
 
     {% if not apiKey|length %}
-        {% redirect 'admin/settings/plugins/sms77' with notice 'Missing API key'|t('sms77') %}
+        {% redirect 'admin/settings/plugins/seven' with notice 'Missing API key'|t('seven') %}
     {% endif %}
 {% endmacro %}
 
 {% macro filters() %}
     {% if craft.commerce is defined %}
-        <h2>{{ 'Filters'|t('sms77') }}</h2>
+        <h2>{{ 'Filters'|t('seven') }}</h2>
 
         <div class='field'>
             <div class='heading'>
-                <label for='filter_countries[]'>{{ 'Country'|t('sms77') }}</label>
+                <label for='filter_countries[]'>{{ 'Country'|t('seven') }}</label>
             </div>
 
             <div class='instructions'>
                 <p>
-                    {{ 'Restrict sending to customers from the selected countries.'|t('sms77') }}
-                    {{ 'Unused if field "to" is set.'|t('sms77') }}
+                    {{ 'Restrict sending to customers from the selected countries.'|t('seven') }}
+                    {{ 'Unused if field "to" is set.'|t('seven') }}
                 </p>
             </div>
 
@@ -37,11 +37,11 @@
 {% macro from(value) %}
     {% import '_includes/forms' as forms %}
 
-    {% set settings = craft.app.plugins.plugin('sms77').settings %}
+    {% set settings = craft.app.plugins.plugin('seven').settings %}
 
     {{ forms.textField({
-        instructions: 'A custom sender identifier (caller ID)'|t('sms77'),
-        label: 'From'|t('sms77'),
+        instructions: 'A custom sender identifier (caller ID)'|t('seven'),
+        label: 'From'|t('seven'),
         name: 'from',
         value: settings.from,
     }) }}
@@ -63,21 +63,21 @@
 
     {% if error|length > 0 %}
         <div style='font-weight: bold;'>
-            {{ 'Error(s)'|t('sms77') }}
+            {{ 'Error(s)'|t('seven') }}
             {{ error }}
         </div>
     {% endif %}
 
     {% if notice|length > 0 %}
         <div style='font-weight: bold;'>
-            {{ 'Notice(s)'|t('sms77') }}
+            {{ 'Notice(s)'|t('seven') }}
             {{ notice }}
         </div>
     {% endif %}
 {% endmacro %}
 
 {% macro submit() %}
-    <button class='btn formsubmit' type='submit'>{{ 'Submit'|t('sms77') }}</button>
+    <button class='btn formsubmit' type='submit'>{{ 'Submit'|t('seven') }}</button>
 {% endmacro %}
 
 {% macro text(maxlength) %}
@@ -85,8 +85,8 @@
 
     {{ forms.textareaField({
         id: 'text',
-        instructions: 'The actual message content'|t('sms77'),
-        label: 'Text'|t('sms77'),
+        instructions: 'The actual message content'|t('seven'),
+        label: 'Text'|t('seven'),
         maxlength: maxlength,
         name: 'text',
         required: true,
@@ -99,8 +99,8 @@
     {{ forms.textField({
         id: 'to',
         instructions: craft.commerce is defined
-        ? 'Unused if any filters are set'|t('sms77') : null ,
-        label: 'Recipient(s) - separated by comma'|t('sms77'),
+        ? 'Unused if any filters are set'|t('seven') : null ,
+        label: 'Recipient(s) - separated by comma'|t('seven'),
         name: 'to',
     }) }}
 {% endmacro %}

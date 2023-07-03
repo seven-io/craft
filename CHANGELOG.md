@@ -1,4 +1,4 @@
-# Craft CMS 3 - sms77
+# Craft CMS 3 - seven
 
 ## v1.1.1 - 2021-11-17
 
@@ -13,4 +13,4 @@
 
 ### Added
 
-- Initial release of the Craft CMS 3 plugin for [sms77](https://www.sms77.io)
+- Initial release of the Craft CMS 3 plugin for [seven](https://www.seven.io)

@@ -1,7 +1,7 @@
 <?php
-namespace Sms77\Craft\config;
+namespace Seven\Craft\config;
 
 return [
-    'sms77/sms' => 'sms77/message/sms',
-    'sms77/voice' => 'sms77/message/voice',
+    'seven/sms' => 'seven/message/sms',
+    'seven/voice' => 'seven/message/voice',
 ];

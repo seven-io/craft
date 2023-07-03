@@ -1,5 +1,5 @@
 <?php
-namespace Sms77\Craft\models;
+namespace Seven\Craft\models;
 
 use craft\base\Model;
 

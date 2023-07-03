@@ -1,8 +1,8 @@
 <?php
-namespace Sms77\Craft\traits;
+namespace Seven\Craft\traits;
 
-use Sms77\Craft\services\SmsService;
-use Sms77\Craft\services\VoiceService;
+use Seven\Craft\services\SmsService;
+use Seven\Craft\services\VoiceService;
 
 trait PluginComponentsTrait {
     public function registerComponents(): void {

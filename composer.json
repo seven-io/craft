@@ -1,6 +1,6 @@
 {
-    "name": "sms77/craft",
-    "description": "Send SMS and make text-to-speech calls via sms77",
+    "name": "seven.io/craft",
+    "description": "Send SMS and make text-to-speech calls via seven",
     "type": "craft-plugin",
     "keywords": [
         "sms",
@@ -13,17 +13,17 @@
     "license": "MIT",
     "authors": [
         {
-            "email": "a.matthies@sms77.io",
-            "homepage": "https://sms77.io",
-            "name": "sms77 e.K.",
+            "email": "support@seven.io",
+            "homepage": "https://www.seven.io",
+            "name": "seven communications GmbH & Co. KG",
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "a.matthies@sms77.io",
-        "issues": "https://github.com/sms77io/craft/issues?state=open",
-        "source": "https://github.com/sms77io/craft",
-        "docs": "https://github.com/sms77io/craft/blob/master/README.md"
+        "email": "support@seven.io",
+        "issues": "https://github.com/seven-io/craft/issues",
+        "source": "https://github.com/seven-io/craft",
+        "docs": "https://github.com/seven-io/craft/blob/master/README.md"
     },
     "require": {
         "craftcms/cms": "^3.1.0",
@@ -31,11 +31,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Sms77\\Craft\\": "src/"
+            "Seven\\Craft\\": "src/"
         }
     },
     "extra": {
-        "name": "sms77",
-        "handle": "sms77"
+        "name": "seven",
+        "handle": "seven"
     }
 }

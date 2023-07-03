@@ -1,5 +1,5 @@
 <?php
-namespace Sms77\Craft\services;
+namespace Seven\Craft\services;
 
 use Craft;
 use Exception;
@@ -30,7 +30,7 @@ class VoiceService extends AbstractService {
 
             if (100 !== $code) {
                 throw new Exception(
-                    Craft::t('sms77', 'Voice dispatch failed:') . " $code");
+                    Craft::t('seven', 'Voice dispatch failed:') . " $code");
             }
 
             return true;

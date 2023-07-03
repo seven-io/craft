@@ -34,13 +34,13 @@ return [
     'Restrict sending to customers from the selected countries.'
     => 'Versand beschränken auf Kundschaft ausgewählter Länder.',
 
-    'Please configure the sms77 settings.'
-    => 'Bitte die Einstellungen für sms77 überprüfen.',
+    'Please configure the seven settings.'
+    => 'Bitte die Einstellungen für seven überprüfen.',
 
     'Send SMS' => 'SMS versenden',
     'Send Voice' => 'Text-zu-Sprachnachrichten versenden',
-    'sms77 API Key required for sending'
-    => 'sms77 Schnittstellenschlüssel erforderlich für Versand',
+    'seven API Key required for sending'
+    => 'seven Schnittstellenschlüssel erforderlich für Versand',
     'SMS dispatch failed:' => 'SMS-Versand fehlgeschlagen:',
     'Submit' => 'Absenden',
 
