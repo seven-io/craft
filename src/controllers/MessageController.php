@@ -20,7 +20,6 @@ class MessageController extends Controller {
         if (count($to)) {
             $this->send('sms', [(new SmsParams)
                 ->setText($body['text'])
-                ->setDebug((bool)$body['debug'])
                 ->setDelay($body['delay'] ?? null)
                 ->setFlash((bool)$body['flash'])
                 ->setForeignId($body['foreign_id'] ?? null)
