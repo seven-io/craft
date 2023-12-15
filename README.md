@@ -1,4 +1,5 @@
-![](https://www.seven.io/wp-content/uploads/Logo.svg "seven Logo")
+<img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" />
+
 
 # Official Craft [CMS](https://craftcms.com) + [Commerce](https://craftcms.com/commerce) Plugin
 
