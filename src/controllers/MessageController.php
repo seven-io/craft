@@ -25,7 +25,6 @@ class MessageController extends Controller {
                 ->setForeignId($body['foreign_id'] ?? null)
                 ->setJson((bool)$body['json'])
                 ->setLabel($body['label'] ?? null)
-                ->setNoReload((bool)$body['no_reload'])
                 ->setPerformanceTracking((bool)$body['performance_tracking'])
                 ->setTo(implode(',', array_unique($to)))]);
         }

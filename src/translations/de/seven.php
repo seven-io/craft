@@ -28,7 +28,6 @@ return [
     'Notice(s)' => 'Notizen',
     'No recipient(s) found for the given configuration.'
     => 'Keine Rufnummern gefunden für die gegebene Konfiguration.',
-    'No Reload' => 'Erlaube Duplikate',
 
     'Recipient(s) - separated by comma' => 'Empfänger - getrennt per Komma',
     'Restrict sending to customers from the selected countries.'
