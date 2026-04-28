@@ -1,158 +1,115 @@
-<img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" />
+<p align="center">
+  <img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" alt="seven logo" />
+</p>
 
-# Official Craft [CMS](https://craftcms.com) + [Commerce](https://craftcms.com/commerce) Plugin
+<h1 align="center">seven SMS &amp; Voice for Craft CMS</h1>
 
-Send SMS and voice (text-to-speech) messages directly from your Craft CMS control panel or programmatically via service APIs.
+<p align="center">
+  Send SMS and text-to-speech messages from <a href="https://craftcms.com">Craft CMS</a> and <a href="https://craftcms.com/commerce">Craft Commerce</a> via the seven gateway.
+</p>
+
+<p align="center">
+  <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-teal.svg" alt="MIT License" /></a>
+  <img src="https://img.shields.io/badge/Craft-3.1.5%2B-orange" alt="Craft 3.1.5+" />
+  <img src="https://img.shields.io/badge/PHP-7.2%2B-purple" alt="PHP 7.2+" />
+  <a href="https://packagist.org/packages/seven.io/craft"><img src="https://img.shields.io/packagist/v/seven.io/craft" alt="Packagist" /></a>
+</p>
+
+---
 
 ## Features
 
-- **SMS Messaging**
-  - Send individual SMS via control panel
-  - Programmatic SMS API with fluent interface
-  - Bulk SMS to Craft Commerce customers
-  - Advanced options: delay, flash SMS, performance tracking, custom labels
-
-- **Voice Messaging**
-  - Send individual voice calls via control panel
-  - Programmatic voice API with fluent interface
-  - Bulk voice calls to Craft Commerce customers
-  - Text-to-speech with XML support
-
-- **Craft Commerce Integration** (optional)
-  - Bulk messaging to all customers
-  - Country-based filtering
-  - Automatic phone number extraction from customer addresses
+- **SMS Messaging** - Send single messages via control panel or programmatically; bulk-send to Craft Commerce customers
+- **Voice Messaging** - Place text-to-speech calls, with XML mode and JSON-response toggle
+- **Craft Commerce Integration** - Bulk messaging with country-based filtering and automatic phone-number extraction
+- **Advanced Options** - Delay, flash SMS, performance tracking, custom labels, foreign IDs
 
 ## Prerequisites
 
-- [Craft CMS](https://craftcms.com) 3.1.5 or later
-- An API key from [seven.io](https://www.seven.io)
-- (Optional) [Craft Commerce](https://craftcms.com/commerce) 2.x for bulk messaging features
+- [Craft CMS](https://craftcms.com) 3.1.5 or newer
+- (Optional) [Craft Commerce](https://craftcms.com/commerce) 2.x for bulk messaging
+- A [seven account](https://www.seven.io/) with API key ([How to get your API key](https://help.seven.io/en/developer/where-do-i-find-my-api-key))
 
 ## Installation
 
-Install via [Composer](https://getcomposer.org):
+### Composer
 
 ```bash
-# Navigate to your Craft project root
-cd /path/to/your/craft-project
-
-# Install the plugin
+cd /path/to/craft-project
 composer require seven.io/craft
-
-# Install via Craft CLI
 ./craft install/plugin seven
 ```
 
-Alternatively, install from the Craft Plugin Store.
+### Plugin Store
+
+Install **seven** from the Craft Plugin Store.
 
 ## Configuration
 
-1. Navigate to **Settings → seven** in your Craft control panel
-2. Enter your seven.io API key (required)
-3. Optionally set a default sender ID/from number (max 16 characters)
+Open **Settings > seven** in the Craft control panel:
+
+| Field | Description |
+|-------|-------------|
+| API Key | Your seven API key (required) |
+| From | Default sender ID. Up to 16 characters |
 
 ## Usage
 
 ### Control Panel
 
-Access the plugin via the main navigation:
-- **seven SMS** - Send individual or bulk SMS messages
-- **seven Voice** - Send individual or bulk voice calls
+- **seven SMS** - Send single or bulk SMS
+- **seven Voice** - Place single or bulk voice calls
 
-For bulk messaging with Craft Commerce, leave the recipient field empty and optionally filter by country.
+For bulk Commerce messaging, leave the recipient field empty and pick countries to filter.
 
-### Programmatic Usage
-
-#### Send SMS
+### Programmatic SMS
 
 ```php
 use Seven\Craft\Plugin;
 
-$instance = Plugin::getInstance();
-$sms = $instance->getSms();
-
+$sms = Plugin::getInstance()->getSms();
 $sms->params
-    ->setTo('+4901234567890')           // Required: recipient(s), comma-separated
-    ->setText('Your message here')      // Required: message text
-    ->setFrom('YourCompany')            // Optional: sender ID (max 16 chars)
-    ->setDelay('2024-12-31 23:59')     // Optional: scheduled delivery
-    ->setFlash(true)                    // Optional: flash SMS
-    ->setLabel('campaign-2024')         // Optional: custom label
-    ->setPerformanceTracking(true);     // Optional: enable tracking
+    ->setTo('+4901234567890')
+    ->setText('Your message')
+    ->setFrom('YourCompany')
+    ->setDelay('2024-12-31 23:59')
+    ->setFlash(true)
+    ->setLabel('campaign-2024')
+    ->setPerformanceTracking(true);
 
-$success = $sms->send(); // Returns true on success, false on failure
+$success = $sms->send();
 ```
 
-#### Send Voice Call
+### Programmatic Voice
 
 ```php
 use Seven\Craft\Plugin;
 
-$instance = Plugin::getInstance();
-$voice = $instance->getVoice();
-
+$voice = Plugin::getInstance()->getVoice();
 $voice->params
-    ->setTo('+4901234567890')           // Required: recipient(s), comma-separated
-    ->setText('Your message here')      // Required: message text (TTS)
-    ->setFrom('YourCompany')            // Optional: caller ID
-    ->setXml(false)                     // Optional: XML mode
-    ->setJson(true);                    // Optional: JSON response
+    ->setTo('+4901234567890')
+    ->setText('Hello there')
+    ->setFrom('YourCompany')
+    ->setXml(false)
+    ->setJson(true);
 
-$success = $voice->send(); // Returns true on success, false on failure
+$success = $voice->send();
 ```
 
-#### Available Parameters
+### Available parameters
 
-**SMS Parameters** (via `SmsParams`):
-- `setTo(string)` - Recipient phone number(s), comma-separated
-- `setText(string)` - Message text
-- `setFrom(string)` - Sender ID (alphanumeric, max 16 chars)
-- `setDelay(string)` - Scheduled delivery timestamp
-- `setFlash(bool)` - Send as flash SMS
-- `setForeignId(string)` - Custom foreign ID
-- `setJson(bool)` - JSON response format
-- `setLabel(string)` - Custom label for tracking
-- `setPerformanceTracking(bool)` - Enable performance tracking
+**SMS** (`SmsParams`): `setTo`, `setText`, `setFrom`, `setDelay`, `setFlash`, `setForeignId`, `setJson`, `setLabel`, `setPerformanceTracking`
 
-**Voice Parameters** (via `VoiceParams`):
-- `setTo(string)` - Recipient phone number(s), comma-separated
-- `setText(string)` - Text-to-speech message
-- `setFrom(string)` - Caller ID
-- `setXml(bool)` - XML mode
-- `setJson(bool)` - JSON response format
+**Voice** (`VoiceParams`): `setTo`, `setText`, `setFrom`, `setXml`, `setJson`
 
-### Error Handling
+### Error handling
 
-The `send()` method returns a boolean:
-- `true` - Message sent successfully (API response code 100)
-- `false` - Sending failed (logged via Craft's error handler)
-
-Check Craft logs for detailed error messages.
-
-## Craft Commerce Bulk Messaging
-
-When Craft Commerce is installed, you can send messages to all customers:
-
-1. Navigate to **seven SMS** or **seven Voice**
-2. Leave the recipient field empty
-3. Optionally select countries to filter recipients
-4. Enter your message and send
-
-The plugin automatically extracts phone numbers from customer billing/shipping addresses.
-
-## API Response Codes
-
-- `100` - Success
-- Other codes indicate errors (see [seven.io API documentation](https://www.seven.io/en/docs/gateway/http-api/) for details)
+`send()` returns `true` for success (API response `100`) or `false` on failure. Detailed errors are logged via Craft's error handler.
 
 ## Support
 
-Need help? Contact us:
-- Email: [support@seven.io](mailto:support@seven.io)
-- Website: [seven.io/en/company/contact](https://www.seven.io/en/company/contact/)
-- Issues: [GitHub Issues](https://github.com/seven-io/craft/issues)
+Need help? Feel free to [contact us](https://www.seven.io/en/company/contact/) or [open an issue](https://github.com/seven-io/craft/issues).
 
 ## License
 
-[![MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE.md)
+[MIT](LICENSE.md)
